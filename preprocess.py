@@ -3,6 +3,7 @@
 # Construct a prefix tree (trie) from the dataset
 
 import json
+import pickle
 
 
 class TrieNode():
@@ -26,9 +27,11 @@ class Trie():
 
             # if the leading char in the string is already a child, no need to add a new node
             if character == child.char:
+
                 if len(sentence) == 1: # is this block correct?
                     child.end_of_sentence = True
                     return self
+
                 return self.add_sentence(child, sentence[1:])
 
         node = TrieNode(character)
@@ -74,10 +77,11 @@ if __name__ == "__main__":
     root = TrieNode('')
     trie = Trie(root)
 
-    sentences = extract_sentences_from_json("sample_conversations.json")
+    sentences = extract_sentences_from_json("sample_conversations.json") # TODO: pickle this so it can be reloaded instead of recomputed each time
     
     for sentence in sentences:
         trie.add_sentence(root, sentence)
 
+    # TODO: figure out why full sentences return false, while one character short of full returns true
     print(trie.contains(root, "Hi! I placed an order on your website and I can't find the tracking number. Can you help me find out where my package is"))
     print(trie.contains(root, "Hi! I placed an order on your website and I can't find the tracking number. Can you help me find out where my package is?"))
