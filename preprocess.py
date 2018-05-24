@@ -31,10 +31,20 @@ class Trie():
 
         node = TrieNode(character)
 
-        if len(sentence == 1):
+        if len(sentence) == 1:
             node.end_of_sentence = True
             return self
 
         root.children.append(node)
-        return self.add_sentence(child, sentence[1:])
+        return self.add_sentence(node, sentence[1:])
 
+
+if __name__ == "__main__":
+
+    root = TrieNode('')
+    trie = Trie(root)
+
+    for sentence in ["What is your account number?", "What is your address?", "What is your order number?"]:
+        trie.add_sentence(root, sentence)
+    
+    print(trie)
