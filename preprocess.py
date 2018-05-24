@@ -2,6 +2,8 @@
 
 # Construct a prefix tree (trie) from the dataset
 
+import json
+
 
 class TrieNode():
 
@@ -16,9 +18,6 @@ class Trie():
     def __init__(self, root: TrieNode):
         self.root = root
 
-    def create_trie_from_file(self):
-        return
-
     def add_sentence(self, root: TrieNode, sentence: list):
 
         character = sentence[0]
@@ -27,6 +26,9 @@ class Trie():
 
             # if the leading char in the string is already a child, no need to add a new node
             if character == child.char:
+                if len(sentence) == 1: # is this block correct?
+                    child.end_of_sentence = True
+                    return self
                 return self.add_sentence(child, sentence[1:])
 
         node = TrieNode(character)
@@ -51,12 +53,31 @@ class Trie():
         return False
 
 
+def extract_sentences_from_json(file_path: str):
+
+    sentences = []
+
+    with open(file_path) as json_data:
+        data = json.load(json_data)
+    
+    for issues in data["Issues"]:
+        for message in issues["Messages"]:
+            sentences.append(message["Text"])
+    
+    return sentences
+
+
+
 if __name__ == "__main__":
 
+    # code below is currently just for sanity checks
     root = TrieNode('')
     trie = Trie(root)
 
-    for sentence in ["What is your account number?", "What is your address?", "What is your order number?"]:
+    sentences = extract_sentences_from_json("sample_conversations.json")
+    
+    for sentence in sentences:
         trie.add_sentence(root, sentence)
 
-    print(trie.contains(root, "What is you"))
+    print(trie.contains(root, "Hi! I placed an order on your website and I can't find the tracking number. Can you help me find out where my package is"))
+    print(trie.contains(root, "Hi! I placed an order on your website and I can't find the tracking number. Can you help me find out where my package is?"))
