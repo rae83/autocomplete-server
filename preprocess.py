@@ -38,6 +38,18 @@ class Trie():
         root.children.append(node)
         return self.add_sentence(node, sentence[1:])
 
+    def contains(self, root: TrieNode, sentence: list):
+
+        character = sentence[0]
+
+        for child in root.children:
+            if character == child.char:
+                if len(sentence) == 1:
+                    return True
+                return self.contains(child, sentence[1:])
+
+        return False
+
 
 if __name__ == "__main__":
 
@@ -46,5 +58,5 @@ if __name__ == "__main__":
 
     for sentence in ["What is your account number?", "What is your address?", "What is your order number?"]:
         trie.add_sentence(root, sentence)
-    
-    print(trie)
+
+    print(trie.contains(root, "What is you"))
