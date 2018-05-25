@@ -38,6 +38,7 @@ class Trie():
 
         if len(sentence) == 1:
             node.end_of_sentence = True
+            root.children.append(node)
             return self
 
         root.children.append(node)
@@ -82,6 +83,6 @@ if __name__ == "__main__":
     for sentence in sentences:
         trie.add_sentence(root, sentence)
 
-    # TODO: figure out why full sentences return false, while one character short of full returns true
     print(trie.contains(root, "Hi! I placed an order on your website and I can't find the tracking number. Can you help me find out where my package is"))
     print(trie.contains(root, "Hi! I placed an order on your website and I can't find the tracking number. Can you help me find out where my package is?"))
+    print(trie.contains(root, "Hi! I placed an order on your NOT website and I can't find the tracking number. Can you help me find out where my package is?"))
