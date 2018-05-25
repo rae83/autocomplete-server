@@ -4,6 +4,9 @@
 
 import json
 import pickle
+import nltk
+nltk.download("punkt")
+from nltk.tokenize import sent_tokenize
 
 
 class TrieNode():
@@ -59,6 +62,9 @@ class Trie():
             
             return sentences
 
+        if node == None:
+            return []
+
         return enumerate_sentences(node, "", [])
 
 
@@ -86,7 +92,13 @@ def extract_sentences_from_json(file_path: str):
 
     for issues in data["Issues"]:
         for message in issues["Messages"]:
-            sentences.append(message["Text"])
+            text = message["Text"]
+            sentences.append(text)
+
+            # if the text contains multiple sentences, add each individual sentence to the dataset to be added to the trie
+            sub_sentences = sent_tokenize(text)
+            if len(sub_sentences) > 1:
+                sentences.extend(sent_tokenize(text))
 
     return sentences
 
