@@ -105,7 +105,7 @@ if __name__ == "__main__":
     # TODO: pickle the trie so it can be reloaded instead of recomputed each time
 
     (boolean_1, node_1) = trie.contains(root, "Hi! I placed an order on your website and I can't find the tracking number. Can you help me")
-    (boolean_2, node_2) = trie.contains(root, "Hi")
+    (boolean_2, node_2) = trie.contains(root, "xxxx") # NOTE: can't call return_completions_from_node if node is None
     (boolean_3, node_3) = trie.contains(root, "Hi! I placed an order on your NOT website and I can't find the tracking number. Can you help me find out where my package is?")
 
     print(boolean_1, node_1)
