@@ -44,25 +44,25 @@ class Trie(object):
         root.children.append(node)
         return self.add_sentence(node, sentence[1:])
 
-    def return_completions_from_node(self, node: TrieNode):
+    def return_completions_from_node(self, node: TrieNode, prefix=""):
 
-        def enumerate_sentences(node: TrieNode, sentence: str, sentences: list):
+        def enumerate_sentences(node: TrieNode, sentence: str, sentences: list, prefix):
 
             if len(node.children) > 0:
                 for child in node.children:
                     if child.is_end_of_sentence:
-                        sentences.append(sentence + child.char)
+                        sentences.append(prefix + sentence + child.char)
                     if len(child.children) > 0:
-                        enumerate_sentences(child, sentence + child.char, sentences)
+                        enumerate_sentences(child, sentence + child.char, sentences, prefix)
                     else:
-                        enumerate_sentences(child, sentence, sentences)
+                        enumerate_sentences(child, sentence, sentences, prefix)
 
             return sentences
 
         if node == None:
             return []
 
-        return enumerate_sentences(node, "", [])
+        return enumerate_sentences(node, "", [], prefix)
 
     def contains(self, root: TrieNode, sentence: str):
         """

@@ -3,12 +3,12 @@
 from preprocess import Trie
 
 
-def autocomplete(trie: Trie, prefix: list):
+def autocomplete(trie: Trie, prefix: str):
     """
     TODO: add helpful comments
     """
     (contains, node) = trie.contains(trie.root, prefix)
     if contains:
-        return trie.return_completions_from_node(node)
+        return trie.return_completions_from_node(node, prefix=prefix)
     # else:
         # return rnn.return_completions(...)
