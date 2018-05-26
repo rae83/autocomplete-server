@@ -6,7 +6,7 @@ import json
 import pickle
 
 
-class TrieNode():
+class TrieNode(object):
 
     def __init__(self, char: str):
         self.char = char
@@ -14,12 +14,12 @@ class TrieNode():
         self.is_end_of_sentence = False
 
 
-class Trie():
+class Trie(object):
 
     def __init__(self, root: TrieNode):
         self.root = root
 
-    def add_sentence(self, root: TrieNode, sentence: list):
+    def add_sentence(self, root: TrieNode, sentence: str):
 
         character = sentence[0]
 
@@ -50,10 +50,12 @@ class Trie():
 
             if len(node.children) > 0:
                 for child in node.children:
-                    sentence += child.char
                     if child.is_end_of_sentence:
-                        sentences.append(sentence)
-                    enumerate_sentences(child, sentence, sentences)
+                        sentences.append(sentence + child.char)
+                    if len(child.children) > 0:
+                        enumerate_sentences(child, sentence + child.char, sentences)
+                    else:
+                        enumerate_sentences(child, sentence, sentences)
 
             return sentences
 
@@ -62,7 +64,7 @@ class Trie():
 
         return enumerate_sentences(node, "", [])
 
-    def contains(self, root: TrieNode, sentence: list):
+    def contains(self, root: TrieNode, sentence: str):
         """
         Returns (True, last node visited) if a sentence exists in the trie, (False, None) otherwise
         """
@@ -90,9 +92,9 @@ def extract_sentences_from_json(file_path: str):
             sentences.append(text)
 
             # if the text contains multiple sentences, add each individual sentence to the dataset to be added to the trie
-            sub_sentences = sent_tokenize(text)
-            if len(sub_sentences) > 1:
-                sentences.extend(sent_tokenize(text))
+            # sub_sentences = sent_tokenize(text)
+            # if len(sub_sentences) > 1:
+            #     sentences.extend(sent_tokenize(text))
 
     return sentences
 

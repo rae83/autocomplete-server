@@ -1,10 +1,14 @@
 # Write function to autocomplete a sentence given prefix
 
+from preprocess import Trie
 
-def autocomplete(prefix):
+
+def autocomplete(trie: Trie, prefix: list):
     """
     TODO: add helpful comments
     """
-    if isinstance(prefix, list):
-        prefix.append("as modified in autocomplete")
-    return prefix
+    (contains, node) = trie.contains(trie.root, prefix)
+    if contains:
+        return trie.return_completions_from_node(node)
+    # else:
+        # return rnn.return_completions(...)
