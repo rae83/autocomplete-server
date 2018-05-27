@@ -4,7 +4,7 @@ import tornado.ioloop
 import tornado.web
 import os
 import pickle
-from preprocess import Trie, TrieNode, extract_sentences_from_json
+from trie import Trie, TrieNode, extract_sentences_from_json
 from autocomplete import autocomplete
 
 

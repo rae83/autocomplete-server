@@ -1,6 +1,6 @@
 # Write function to autocomplete a sentence given prefix
 
-from preprocess import Trie
+from trie import Trie
 
 
 def autocomplete(trie: Trie, prefix: str):
