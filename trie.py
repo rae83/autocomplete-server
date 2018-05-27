@@ -3,7 +3,6 @@
 
 import os.path
 import json
-import pickle
 from nltk.tokenize import sent_tokenize
 
 
