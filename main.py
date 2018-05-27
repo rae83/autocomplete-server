@@ -9,9 +9,10 @@ class autocomplete_handler(tornado.web.RequestHandler):
 
     def autocomplete(self, trie: Trie, prefix: str):
         """
-        Check if prefix is in trie. If yes, then autocomplete using trie.  Else, use RNN model
+        Check if prefix is in trie. If yes, then autocomplete using trie.  Else, use RNN model.
+        n: Number of completions to return
+        Return: list of strings, where each element is a possible completion.
         """
-        # Number of completions to return
         n = 3
         (contains, node) = trie.contains(trie.root, prefix)
         if contains:
@@ -21,7 +22,7 @@ class autocomplete_handler(tornado.web.RequestHandler):
 
     def get(self):
         """
-        Parse args from URL and return autocompletions
+        Parse args from URL and return autocompletions as JSON.
         """
         args = self.get_arguments("q")[0]
         response = {"Completions": self.autocomplete(trie, args)}
@@ -31,7 +32,7 @@ class autocomplete_handler(tornado.web.RequestHandler):
 
 def make_app():
     """
-    Initialize server with one endpoint for sentence autocomplete
+    Initialize server with one endpoint for sentence autocomplete.
     """
     return tornado.web.Application([
         (r"/autocomplete", autocomplete_handler),

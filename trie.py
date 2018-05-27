@@ -82,7 +82,8 @@ class Trie(object):
 
 def extract_sentences_from_json(file_path: str):
     """
-    Opens the JSON file at a supplied path, extracting just the sentence text from objects in the file
+    Opens the JSON file at a supplied path, extracting just the sentence text from objects in the file.
+    Return: list of strings.
     """
     sentences = []
 
