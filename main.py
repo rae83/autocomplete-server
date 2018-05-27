@@ -2,7 +2,7 @@ import tornado.ioloop
 import tornado.web
 import os
 import pickle
-from trie import Trie, TrieNode, extract_sentences_from_json
+from trie import Trie, TrieNode, extract_sentences_from_json, save_sentences_to_file
 
 
 class autocomplete_handler(tornado.web.RequestHandler):
@@ -43,6 +43,7 @@ if __name__ == "__main__":
 
     # Initialize the prefix trie model for autocompletion
     trie_file_path = b"models/trie.obj"
+    sentences_file_path = "models/sentences.txt"
 
     # If pickled file with trie exists, load the model. Else, create the model from the sentences
     if os.path.isfile(trie_file_path):
@@ -59,6 +60,8 @@ if __name__ == "__main__":
         trie = Trie(root)
 
         sentences = extract_sentences_from_json("sample_conversations.json")
+        if not os.path.isfile(sentences_file_path):
+            save_sentences_to_file(sentences, sentences_file_path)
 
         for sentence in sentences:
             trie.add_sentence(root, sentence)

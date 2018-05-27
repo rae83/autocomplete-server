@@ -100,3 +100,8 @@ def extract_sentences_from_json(file_path: str):
                 sentences.extend(sent_tokenize(text))
 
     return sentences
+
+def save_sentences_to_file(sentences: list, file_path: str):
+    with open(file_path, 'w') as file_handler:
+        for sentence in sentences:
+            file_handler.write(sentence + "\n")
