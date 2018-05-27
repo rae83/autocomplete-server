@@ -1,7 +1,7 @@
 import string
 import random
 import unittest
-from preprocess import Trie, TrieNode
+from trie import Trie, TrieNode
 
 
 class TestPreprocess(unittest.TestCase):

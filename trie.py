@@ -67,7 +67,7 @@ class Trie(object):
 
     def contains(self, root: TrieNode, sentence: str):
         """
-        Returns (True, last node visited) if a sentence exists in the trie, (False, None) otherwise
+        Returns (True, last node visited) if a sentence exists in the trie. Returns (False, None) otherwise
         """
         character = sentence[0]
 
@@ -81,7 +81,9 @@ class Trie(object):
 
 
 def extract_sentences_from_json(file_path: str):
-
+    """
+    Opens the JSON file at a supplied path, extracting just the sentence text from objects in the file
+    """
     sentences = []
 
     with open(file_path) as json_data:

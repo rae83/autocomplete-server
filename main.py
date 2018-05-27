@@ -3,17 +3,28 @@ import tornado.web
 import os
 import pickle
 from trie import Trie, TrieNode, extract_sentences_from_json
-from autocomplete import autocomplete
 
 
 class autocomplete_handler(tornado.web.RequestHandler):
-    """
-    Handler for parsing args from URL and returning autocompletions
-    """
+
+    def autocomplete(self, trie: Trie, prefix: str):
+        """
+        Check if prefix is in trie. If yes, then autocomplete using trie.  Else, use RNN model
+        """
+        # Number of completions to return
+        n = 3
+        (contains, node) = trie.contains(trie.root, prefix)
+        if contains:
+            return trie.return_completions_from_node(node, prefix=prefix)[:n]
+        # else:
+            # return rnn.return_completions(...)
 
     def get(self):
+        """
+        Parse args from URL and return autocompletions
+        """
         args = self.get_arguments("q")[0]
-        response = {"Completions": autocomplete(trie, args)}
+        response = {"Completions": self.autocomplete(trie, args)}
         self.write(response)
         self.write('\n')
 
