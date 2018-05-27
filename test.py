@@ -30,5 +30,6 @@ class TestPreprocess(unittest.TestCase):
         # Although the unnittest method is misleadingly named, it actually checks if two arrays contain same elements
         self.assertCountEqual([self.ending_1, self.ending_2], completions)
 
+
 if __name__ == '__main__':
     unittest.main()

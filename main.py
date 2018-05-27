@@ -42,11 +42,11 @@ def make_app():
 if __name__ == "__main__":
 
     # Initialize the prefix trie model for autocompletion
-    file_path = b"models/trie.obj"
+    trie_file_path = b"models/trie.obj"
 
     # If pickled file with trie exists, load the model. Else, create the model from the sentences
-    if os.path.isfile(file_path):
-        file = open(file_path, 'rb')
+    if os.path.isfile(trie_file_path):
+        file = open(trie_file_path, 'rb')
         trie = pickle.load(file)
         root = trie.root
     else:
@@ -64,7 +64,7 @@ if __name__ == "__main__":
             trie.add_sentence(root, sentence)
 
         sys.setrecursionlimit(5000)
-        filehandler = open(file_path, "wb")
+        filehandler = open(trie_file_path, "wb")
         pickle.dump(trie, filehandler)
         filehandler.close()
 
