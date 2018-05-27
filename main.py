@@ -25,7 +25,7 @@ class autocomplete_handler(tornado.web.RequestHandler):
 
 def make_app():
     """
-    TODO: add helpful comments
+    Initialize the /autocomplete endpoint
     """
     return tornado.web.Application([
         (r"/autocomplete", autocomplete_handler),
@@ -37,16 +37,16 @@ if __name__ == "__main__":
     # Initialize the prefix trie model for autocompletion
     file_path = b"models/trie.obj"
 
-    # if pickled file with trie exists, load the model
+    # If pickled file with trie exists, load the model. Else, create the model from the sentences
     if os.path.isfile(file_path):
         file = open(file_path, 'rb')
         trie = pickle.load(file)
         root = trie.root
-    else:  # else, create the model from the sentences
+    else:
         import sys
-        # import nltk
-        # nltk.download("punkt")
-        # from nltk.tokenize import sent_tokenize
+        import nltk
+        nltk.download("punkt")
+        from nltk.tokenize import sent_tokenize
 
         root = TrieNode('')
         trie = Trie(root)

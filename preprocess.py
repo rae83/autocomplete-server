@@ -4,6 +4,7 @@
 import os.path
 import json
 import pickle
+from nltk.tokenize import sent_tokenize
 
 
 class TrieNode(object):
@@ -25,7 +26,7 @@ class Trie(object):
 
         for child in root.children:
 
-            # if the leading char in the string is already a child, no need to add a new node
+            # If the leading char in the string is already a child, no need to add a new node
             if character == child.char:
 
                 if len(sentence) == 1:
@@ -91,10 +92,10 @@ def extract_sentences_from_json(file_path: str):
             text = message["Text"]
             sentences.append(text)
 
-            # if the text contains multiple sentences, add each individual sentence to the dataset to be added to the trie
-            # sub_sentences = sent_tokenize(text)
-            # if len(sub_sentences) > 1:
-            #     sentences.extend(sent_tokenize(text))
+            # If the text contains multiple sentences, add each individual sentence to the dataset to be added to the trie
+            sub_sentences = sent_tokenize(text)
+            if len(sub_sentences) > 1:
+                sentences.extend(sent_tokenize(text))
 
     return sentences
 
