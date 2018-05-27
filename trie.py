@@ -114,8 +114,8 @@ def save_sentences_to_file(sentences: list, file_path: str):
 
 def initialize_prefix_trie():
     # Initialize the prefix trie model for autocompletion
-    trie_file_path = b"models/trie.obj"
-    sentences_file_path = "models/sentences.txt"
+    trie_file_path = b"data/trie.obj"
+    sentences_file_path = "data/sentences.txt"
 
     # If pickled file with trie exists, load the model. Else, create the model from the sentences
     if os.path.isfile(trie_file_path):
@@ -128,7 +128,7 @@ def initialize_prefix_trie():
         root = TrieNode('')
         trie = Trie(root)
 
-        sentences = extract_sentences_from_json("sample_conversations.json")
+        sentences = extract_sentences_from_json("data/sample_conversations.json")
         if not os.path.isfile(sentences_file_path):
             save_sentences_to_file(sentences, sentences_file_path)
 

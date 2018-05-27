@@ -42,6 +42,7 @@ def make_app():
 if __name__ == "__main__":
 
     trie = initialize_prefix_trie()
+    # rnn = load_rnn_model()
 
     # Start the server
     app = make_app()
