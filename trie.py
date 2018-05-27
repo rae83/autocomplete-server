@@ -3,6 +3,10 @@
 
 import os.path
 import json
+import pickle
+import sys
+import nltk
+nltk.download("punkt")
 from nltk.tokenize import sent_tokenize
 
 
@@ -101,7 +105,39 @@ def extract_sentences_from_json(file_path: str):
 
     return sentences
 
+
 def save_sentences_to_file(sentences: list, file_path: str):
     with open(file_path, 'w') as file_handler:
         for sentence in sentences:
             file_handler.write(sentence + "\n")
+
+
+def initialize_prefix_trie():
+    # Initialize the prefix trie model for autocompletion
+    trie_file_path = b"models/trie.obj"
+    sentences_file_path = "models/sentences.txt"
+
+    # If pickled file with trie exists, load the model. Else, create the model from the sentences
+    if os.path.isfile(trie_file_path):
+        file = open(trie_file_path, 'rb')
+        trie = pickle.load(file)
+        root = trie.root
+    else:
+
+
+        root = TrieNode('')
+        trie = Trie(root)
+
+        sentences = extract_sentences_from_json("sample_conversations.json")
+        if not os.path.isfile(sentences_file_path):
+            save_sentences_to_file(sentences, sentences_file_path)
+
+        for sentence in sentences:
+            trie.add_sentence(root, sentence)
+
+        sys.setrecursionlimit(5000)
+        filehandler = open(trie_file_path, "wb")
+        pickle.dump(trie, filehandler)
+        filehandler.close()
+    
+    return trie

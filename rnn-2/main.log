@@ -603,3 +603,64 @@ That is all
 Thank you.
 
 
+2018-05-27 16:15:17,969 - utils - DEBUG - call: keras_model.py generate --checkpoint=checkpoints/model.cpkt --seed=What is you
+2018-05-27 16:15:17,970 - utils - DEBUG - ArgumentParser: Namespace(checkpoint_path='checkpoints/model.cpkt', length=1024, log_path='/Users/Ryan.Enderby@ibm.com/asapp/asapp-ml/rnn-2/main.log', main=<function generate_main at 0x112536840>, seed='What is you', text_path=None, top_n=3)
+2018-05-27 16:15:21,261 - __main__ - INFO - building inference model.
+2018-05-27 16:15:22,199 - __main__ - INFO - model loaded: checkpoints/model.cpkt.
+2018-05-27 16:15:22,199 - __main__ - INFO - generating 1024 characters from top 3 choices.
+2018-05-27 16:15:22,199 - __main__ - INFO - generating with seed: "What is you".
+2018-05-27 16:15:23,440 - __main__ - INFO - generated text: 
+What is your try and see if there are working which was delivered.
+I apologht the name on the compting and see there is all the new address.
+I'm sorry that the connection.
+I see that your account number
+I'm happy to assist you we have any channels are working within the next available flight was suspactions to restart to resort will be reconnectly suplent and see if today?
+No thank you for contact the card on all I can assist you with a technician says it seems will be able this issue.
+Okay I'll be houce
+Great, I will have the contract.
+I appast you with?
+That's all I can do
+Today
+Is there anything else I can assist you with?
+No that's a pleasure helping you. Is there anything else I can assist you with
+Okay, I will bot home they didnt snowed in today with that some this issue with you accopt with the issue is service will be here
+I appress does that confirmation number on the system was supposed by the bank from the shelves the delivered to change your passwords for you?
+I will be happy to log and the same with my cabl
+
+2018-05-27 16:16:42,031 - utils - DEBUG - call: keras_model.py generate --checkpoint=checkpoints/model.cpkt --seed=What is you
+2018-05-27 16:16:42,032 - utils - DEBUG - ArgumentParser: Namespace(checkpoint_path='checkpoints/model.cpkt', length=1024, log_path='/Users/Ryan.Enderby@ibm.com/asapp/asapp-ml/rnn-2/main.log', main=<function generate_main at 0x11066b840>, seed='What is you', text_path=None, top_n=3)
+2018-05-27 16:16:45,617 - __main__ - INFO - building inference model.
+2018-05-27 16:16:46,568 - __main__ - INFO - model loaded: checkpoints/model.cpkt.
+2018-05-27 16:16:46,569 - __main__ - INFO - generating 1024 characters from top 3 choices.
+2018-05-27 16:16:46,569 - __main__ - INFO - generating with seed: "What is you".
+2018-05-27 16:16:54,051 - utils - DEBUG - call: keras_model.py generate --checkpoint=checkpoints/model.cpkt --seed=What is you
+2018-05-27 16:16:54,051 - utils - DEBUG - ArgumentParser: Namespace(checkpoint_path='checkpoints/model.cpkt', length=1024, log_path='/Users/Ryan.Enderby@ibm.com/asapp/asapp-ml/rnn-2/main.log', main=<function generate_main at 0x117646840>, seed='What is you', text_path=None, top_n=3)
+2018-05-27 16:16:57,281 - __main__ - INFO - building inference model.
+2018-05-27 16:16:58,224 - __main__ - INFO - model loaded: checkpoints/model.cpkt.
+2018-05-27 16:16:58,224 - __main__ - INFO - generating 1024 characters from top 3 choices.
+2018-05-27 16:16:58,224 - __main__ - INFO - generating with seed: "What is you".
+2018-05-27 16:17:30,325 - utils - DEBUG - call: keras_model.py generate --checkpoint=checkpoints/model.cpkt --seed=What is youcl
+2018-05-27 16:17:30,325 - utils - DEBUG - ArgumentParser: Namespace(checkpoint_path='checkpoints/model.cpkt', length=1024, log_path='/Users/Ryan.Enderby@ibm.com/asapp/asapp-ml/rnn-2/main.log', main=<function generate_main at 0x11a3f8840>, seed='What is youcl', text_path=None, top_n=3)
+2018-05-27 16:17:33,662 - __main__ - INFO - building inference model.
+2018-05-27 16:17:34,639 - __main__ - INFO - model loaded: checkpoints/model.cpkt.
+2018-05-27 16:17:34,639 - __main__ - INFO - generating 1024 characters from top 3 choices.
+2018-05-27 16:17:34,639 - __main__ - INFO - generating with seed: "What is youcl".
+2018-05-27 16:17:35,901 - __main__ - INFO - generated text: 
+What is youcl shelf.
+I will be able to resolve this.
+Ok there was an installation online and shelf betten to your account.
+Thanks
+You're welcome. Have a great day
+You're welcome.
+Thank you for contacting in two days. I will be all that investigation today to see if there's nothination for the card will be have a package. Can we see that there was startus
+I've been have a great day.
+Okay, I see that we have a tech card. Is there a nice day further ticket. I apprecomation will be a signature were date is not when the shelves.
+Is there anything else I can assist you with today?
+No thanks
+Is there anything else I can assist you with today?
+That is all set any contract is all
+Have a great day
+Hi. I will send you the system is the channels so I was supponsing a new password to right number on the replacement shortly in thanks for the charge.
+I was done one moment while I was at works for you?
+I'm sorry for the instalise is to restart to happy to assist you with this. That is all I am sorry fixses one service is sorthing in the 
+

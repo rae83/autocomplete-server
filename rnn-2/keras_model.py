@@ -86,6 +86,8 @@ def generate_text(model, seed, length=512, top_n=10):
         next_index = sample_from_probs(probs.squeeze(), top_n)
         # append to sequence
         generated += ID2CHAR[next_index]
+        if ID2CHAR[next_index] in [".", "!", "?", "\n"]:
+            return generated
 
     logger.info("generated text: \n%s\n", generated)
     return generated
