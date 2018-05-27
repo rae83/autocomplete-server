@@ -1,5 +1,3 @@
-# Set up REST server with one endpoint for sentence autocomplete
-
 import tornado.ioloop
 import tornado.web
 import os
@@ -10,13 +8,10 @@ from autocomplete import autocomplete
 
 class autocomplete_handler(tornado.web.RequestHandler):
     """
-    TODO: add helpful comments
+    Handler for parsing args from URL and returning autocompletions
     """
 
     def get(self):
-        """
-        TODO: add helpful comments
-        """
         args = self.get_arguments("q")[0]
         response = {"Completions": autocomplete(trie, args)}
         self.write(response)
@@ -25,7 +20,7 @@ class autocomplete_handler(tornado.web.RequestHandler):
 
 def make_app():
     """
-    Initialize the /autocomplete endpoint
+    Initialize server with one endpoint for sentence autocomplete
     """
     return tornado.web.Application([
         (r"/autocomplete", autocomplete_handler),
