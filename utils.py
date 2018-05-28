@@ -12,10 +12,7 @@ logger = get_logger(__name__)
 
 # Adapted from implementation: https://github.com/yxtay/char-rnn-text-generation
 
-###
-# file system
-###
-
+# File system
 
 def make_dirs(path, empty=False):
     """
@@ -42,9 +39,7 @@ def path_join(*paths, empty=False):
     return path
 
 
-###
-# data processing
-###
+# Data processing functions
 
 def create_dictionary():
     """
@@ -115,10 +110,7 @@ def batch_generator(sequence, batch_size=64, seq_len=64, one_hot_features=False,
             yield x_epoch[batch], y_epoch[batch]
         epoch += 1
 
-
-###
-# text generation
-###
+# Text generation
 
 def generate_seed(text, seq_lens=(2, 4, 8, 16, 32)):
     """
@@ -145,12 +137,9 @@ def sample_from_probs(probs, top_n=10):
     sampled_index = np.random.choice(len(probs), p=probs)
     return sampled_index
 
+# Main - used for training
 
-###
-# main
-###
-
-def main(framework, train_main, generate_main):
+def main(framework, train_main):
     arg_parser = ArgumentParser(
         description="{} character embeddings GRU text generation model.".format(framework))
     subparsers = arg_parser.add_subparsers(title="subcommands")
@@ -185,21 +174,6 @@ def main(framework, train_main, generate_main):
     train_parser.add_argument("--log-path", default=os.path.join(os.path.dirname(__file__), "main.log"),
                               help="path of log file (default: %(default)s)")
     train_parser.set_defaults(main=train_main)
-
-    # generate args
-    generate_parser = subparsers.add_parser("generate", help="generate text from trained model")
-    generate_parser.add_argument("--checkpoint-path", required=True,
-                                 help="path to load model checkpoints (required)")
-    group = generate_parser.add_mutually_exclusive_group(required=True)
-    group.add_argument("--text-path", help="path of text file to generate seed")
-    group.add_argument("--seed", default=None, help="seed character sequence")
-    generate_parser.add_argument("--length", type=int, default=1024,
-                                 help="length of character sequence to generate (default: %(default)s)")
-    generate_parser.add_argument("--top-n", type=int, default=3,
-                                 help="number of top choices to sample (default: %(default)s)")
-    generate_parser.add_argument("--log-path", default=os.path.join(os.path.dirname(__file__), "main.log"),
-                                 help="path of log file (default: %(default)s)")
-    generate_parser.set_defaults(main=generate_main)
 
     args = arg_parser.parse_args()
     get_logger("__main__", log_path=args.log_path, console=True)

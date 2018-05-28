@@ -15,12 +15,13 @@ from utils import (batch_generator, encode_text, generate_seed, ID2CHAR, main,
 logger = get_logger(__name__)
 
 # Adapted from implementation: https://github.com/yxtay/char-rnn-text-generation
+# Changed model to GRU to better suit fast-as-possible autocomplete, changed logic for text generation.
 
 def build_model(batch_size, seq_len, vocab_size=VOCAB_SIZE, embedding_size=32,
                 rnn_size=128, num_layers=2, drop_rate=0.0,
                 learning_rate=0.001, clip_norm=5.0):
     """
-    build character embeddings LSTM text generation model.
+    Build character embeddings GRU text generation model.
     """
     logger.info("building model: batch_size=%s, seq_len=%s, vocab_size=%s, "
                 "embedding_size=%s, rnn_size=%s, num_layers=%s, drop_rate=%s, "
@@ -28,26 +29,28 @@ def build_model(batch_size, seq_len, vocab_size=VOCAB_SIZE, embedding_size=32,
                 batch_size, seq_len, vocab_size, embedding_size,
                 rnn_size, num_layers, drop_rate,
                 learning_rate, clip_norm)
+
     model = Sequential()
-    # input shape: (batch_size, seq_len)
-    model.add(Embedding(vocab_size, embedding_size,
-                        batch_input_shape=(batch_size, seq_len)))
+    # Input shape: (batch_size, seq_len)
+    model.add(Embedding(vocab_size, embedding_size, batch_input_shape=(batch_size, seq_len)))
     model.add(Dropout(drop_rate))
-    # shape: (batch_size, seq_len, embedding_size)
+    # Shape: (batch_size, seq_len, embedding_size)
     for _ in range(num_layers):
         model.add(GRU(rnn_size, return_sequences=True, stateful=True))
         model.add(Dropout(drop_rate))
-    # shape: (batch_size, seq_len, rnn_size)
+    # Shape: (batch_size, seq_len, rnn_size)
     model.add(TimeDistributed(Dense(vocab_size, activation="softmax")))
-    # output shape: (batch_size, seq_len, vocab_size)
+    # Output shape: (batch_size, seq_len, vocab_size)
+
     optimizer = Adam(learning_rate, clipnorm=clip_norm)
     model.compile(loss="categorical_crossentropy", optimizer=optimizer)
+
     return model
 
 
 def build_inference_model(model, batch_size=1, seq_len=1):
     """
-    build inference model from model config
+    Build inference model from model config
     input shape modified to (1, 1)
     """
     logger.info("building inference model.")
@@ -183,33 +186,8 @@ def train_main(args):
     return model
 
 
-def generate_main(args):
-    """
-    generates text from trained model specified in args.
-    main method for generate subcommand.
-    """
-    # load learning model for config and weights
-    model = load_model(args.checkpoint_path)
-    # build inference model and transfer weights
-    inference_model = build_inference_model(model)
-    inference_model.set_weights(model.get_weights())
-    logger.info("model loaded: %s.", args.checkpoint_path)
-
-    # create seed if not specified
-    if args.seed is None:
-        with open(args.text_path) as f:
-            text = f.read()
-        seed = generate_seed(text)
-        logger.info("seed sequence generated from %s.", args.text_path)
-    else:
-        seed = args.seed
-        print("SEED:", seed)
-
-    return generate_text(inference_model, seed, args.length, args.top_n)
-
-
 if __name__ == "__main__":
-    main("Keras", train_main, generate_main)
+    main("Keras", train_main)
 
     # Example usage for training:
-    # python3 rnn.py train --checkpoint=checkpoints/model.ckpt --restore=checkpoints/model.ckpt  --text=../data/sentences.txt
+    # $: python3 rnn.py train --checkpoint=checkpoints/model.ckpt --restore=checkpoints/model.ckpt  --text=../data/sentences.txt
