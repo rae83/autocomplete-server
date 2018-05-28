@@ -30,10 +30,12 @@ class Trie(object):
 
     def add_sentence(self, root: TrieNode, sentence: str):
         """
-        Adds a sentence to the trie, one char at a time, from a given node.
-        root: the TrieNode at which to begin appending a sentence.
-        sentence: the str to append below the supplied root.
-        Return: the updated trie.
+        Adds a sentence to the Trie, one char at a time, from a given node.
+        Args:
+            root (TrieNode): the TrieNode at which to begin appending a sentence.
+            sentence (str): the str to append below the supplied root.
+        Returns:
+            the updated Trie.
         """
         character = sentence[0]
 
@@ -64,9 +66,11 @@ class Trie(object):
     def return_completions_from_node(self, node: TrieNode, prefix=""):
         """
         Enumerate all possible sentence completions given a prefix.
-        node: the TrieNode at which to begin our search for possible completions.
-        prefix: the str for which completions are enumerated.
-        Return: a list of str, where each element is a possible completion of the prefix.
+        Args:
+            node (TrieNode): the TrieNode at which to begin our search for possible completions.
+            prefix (str): the prefix for which completions are enumerated.
+        Returns: 
+            a list of str, where each element is a possible completion of the prefix.
         """
         def enumerate_sentences(node: TrieNode, sentence: str, sentences: list, prefix: str):
 
@@ -89,10 +93,13 @@ class Trie(object):
     def contains(self, root: TrieNode, sentence: str):
         """
         Check if a given sentence exists in a Trie, starting at the given node.
-        root: TrieNode at which to begin checking for existence of sentence.
-        sentence: str to check for existence in the trie.
-        Return: (True, last node visited) if a sentence exists in the trie, starting at a given node.
-                (False, None) otherwise.
+        Args:
+            root (TrieNode): node at which to begin checking for existence of sentence.
+            sentence (str): string to check for existence in the trie.
+        Returns:
+            (bool, TrieNode)
+            (True, last node visited) if a sentence exists in the trie, starting at a given node.
+            (False, None) otherwise.
         """
         character = sentence[0]
 
@@ -108,8 +115,10 @@ class Trie(object):
 def extract_sentences_from_json(file_path: str):
     """
     Opens the JSON file at a specified path, extracting just the sentence text from objects in the file.
-    file_path: path of JSON file from which to read.
-    Return: list of strings.
+    Args:
+        file_path (str): path of JSON file from which to read.
+    Returns:
+        list of strings.
     """
     sentences = []
 
@@ -132,8 +141,9 @@ def extract_sentences_from_json(file_path: str):
 def save_sentences_to_file(sentences: list, file_path: str):
     """
     Write a list of strings to a text file.
-    sentences: list of str.
-    file_path: path of file to be written.
+    Args:
+        sentences (list): list of strings.
+        file_path (path): path of file to be written.
     """
     with open(file_path, 'w') as file_handler:
         for sentence in sentences:
@@ -143,7 +153,8 @@ def save_sentences_to_file(sentences: list, file_path: str):
 def initialize_prefix_trie():
     """
     Create or load a prefix trie from a given dataset.
-    Return: Trie object.
+    Returns:
+        Trie object.
     """
     # Initialize the prefix trie model for autocompletion
     trie_file_path = b"data/trie.obj"

@@ -8,8 +8,8 @@ from keras.layers import Dense, Dropout, Embedding, LSTM, TimeDistributed
 from keras.models import load_model, Sequential
 from keras.optimizers import Adam
 
-from .logger import get_logger
-from .utils import (batch_generator, encode_text, generate_seed, ID2CHAR, main,
+from logger import get_logger
+from utils import (batch_generator, encode_text, generate_seed, ID2CHAR, main,
                    make_dirs, sample_from_probs, VOCAB_SIZE)
 
 logger = get_logger(__name__)
@@ -210,3 +210,6 @@ def generate_main(args):
 
 if __name__ == "__main__":
     main("Keras", train_main, generate_main)
+
+    # Example usage for training:
+    # rnn.py train --checkpoint=checkpoints/model.ckpt --restore=../checkpoints/model.ckpt  --text=../data/sentences.txt

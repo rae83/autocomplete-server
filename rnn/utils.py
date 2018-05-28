@@ -6,7 +6,7 @@ import sys
 
 import numpy as np
 
-from .logger import get_logger
+from logger import get_logger
 
 logger = get_logger(__name__)
 
@@ -152,7 +152,7 @@ def sample_from_probs(probs, top_n=10):
 
 def main(framework, train_main, generate_main):
     arg_parser = ArgumentParser(
-        description="{} character embeddings LSTM text generation model.".format(framework))
+        description="{} character embeddings GRU text generation model.".format(framework))
     subparsers = arg_parser.add_subparsers(title="subcommands")
 
     # train args

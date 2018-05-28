@@ -12,11 +12,13 @@ class autocomplete_handler(tornado.web.RequestHandler):
     def autocomplete(self, trie: Trie, model, prefix: str):
         """
         Check if prefix is in trie. If yes, then autocomplete using trie.  Else, use RNN(GRU) model.
-        trie: the Trie object for completing prefixes seen during training.
-        model: the RNN(GRU) Keras model for completing novel prefixes.
-        n: Number of completions to return.
-        Return: list of strings, where each element is a possible completion.
+        Args:
+            trie (Trie): the Trie object for completing prefixes seen during training.
+            model (Keras model): the RNN(GRU) Keras model for completing novel prefixes.
+        Returns: 
+            list of strings, where each element is a possible completion.
         """
+        # n (int): Number of completions to return.
         n = 3
         (contains, node) = trie.contains(trie.root, prefix)
         if contains:
