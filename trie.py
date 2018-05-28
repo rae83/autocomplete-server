@@ -11,7 +11,9 @@ from nltk.tokenize import sent_tokenize
 
 
 class TrieNode(object):
-
+    """
+    A single node in the Trie, representing one character in a sentence.
+    """
     def __init__(self, char: str):
         self.char = char
         self.children = []
@@ -19,12 +21,20 @@ class TrieNode(object):
 
 
 class Trie(object):
-
+    """
+    Implementation of a trie: https://en.wikipedia.org/wiki/Trie
+    Each node in the trie is a letter of a sentence.  All descendants of a node share a common prefix.
+    """
     def __init__(self, root: TrieNode):
         self.root = root
 
     def add_sentence(self, root: TrieNode, sentence: str):
-
+        """
+        Adds a sentence to the trie, one char at a time, from a given node.
+        root: the TrieNode at which to begin appending a sentence.
+        sentence: the str to append below the supplied root.
+        Return: the updated trie.
+        """
         character = sentence[0]
 
         for child in root.children:
@@ -32,14 +42,17 @@ class Trie(object):
             # If the leading char in the string is already a child, no need to add a new node
             if character == child.char:
 
+                # Mark as end of sentence if we are looking at the last char of a string
                 if len(sentence) == 1:
                     child.is_end_of_sentence = True
                     return self
 
                 return self.add_sentence(child, sentence[1:])
 
+        # If the leading char is not already a child, append the char as a child of the node
         node = TrieNode(character)
 
+        # Mark as end of sentence if we are looking at the last char of a string
         if len(sentence) == 1:
             node.is_end_of_sentence = True
             root.children.append(node)
@@ -49,8 +62,13 @@ class Trie(object):
         return self.add_sentence(node, sentence[1:])
 
     def return_completions_from_node(self, node: TrieNode, prefix=""):
-
-        def enumerate_sentences(node: TrieNode, sentence: str, sentences: list, prefix):
+        """
+        Enumerate all possible sentence completions given a prefix.
+        node: the TrieNode at which to begin our search for possible completions.
+        prefix: the str for which completions are enumerated.
+        Return: a list of str, where each element is a possible completion of the prefix.
+        """
+        def enumerate_sentences(node: TrieNode, sentence: str, sentences: list, prefix: str):
 
             if len(node.children) > 0:
                 for child in node.children:
@@ -70,7 +88,11 @@ class Trie(object):
 
     def contains(self, root: TrieNode, sentence: str):
         """
-        Returns (True, last node visited) if a sentence exists in the trie. Returns (False, None) otherwise
+        Check if a given sentence exists in a Trie, starting at the given node.
+        root: TrieNode at which to begin checking for existence of sentence.
+        sentence: str to check for existence in the trie.
+        Return: (True, last node visited) if a sentence exists in the trie, starting at a given node.
+                (False, None) otherwise.
         """
         character = sentence[0]
 
@@ -86,6 +108,7 @@ class Trie(object):
 def extract_sentences_from_json(file_path: str):
     """
     Opens the JSON file at a specified path, extracting just the sentence text from objects in the file.
+    file_path: path of JSON file from which to read.
     Return: list of strings.
     """
     sentences = []
@@ -107,12 +130,21 @@ def extract_sentences_from_json(file_path: str):
 
 
 def save_sentences_to_file(sentences: list, file_path: str):
+    """
+    Write a list of strings to a text file.
+    sentences: list of str.
+    file_path: path of file to be written.
+    """
     with open(file_path, 'w') as file_handler:
         for sentence in sentences:
             file_handler.write(sentence + "\n")
 
 
 def initialize_prefix_trie():
+    """
+    Create or load a prefix trie from a given dataset.
+    Return: Trie object.
+    """
     # Initialize the prefix trie model for autocompletion
     trie_file_path = b"data/trie.obj"
     sentences_file_path = "data/sentences.txt"
@@ -123,8 +155,6 @@ def initialize_prefix_trie():
         trie = pickle.load(file)
         root = trie.root
     else:
-
-
         root = TrieNode('')
         trie = Trie(root)
 
