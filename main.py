@@ -11,7 +11,7 @@ class autocomplete_handler(tornado.web.RequestHandler):
 
     def autocomplete(self, trie: Trie, model, prefix: str):
         """
-        Check if prefix is in trie. If yes, then autocomplete using trie.  Else, use RNN model.
+        Check if prefix is in trie. If yes, then autocomplete using trie.  Else, use RNN(GRU) model.
         n: Number of completions to return
         Return: list of strings, where each element is a possible completion.
         """
@@ -46,11 +46,11 @@ def make_app():
 
 if __name__ == "__main__":
 
+    # Load or create the prefix trie for autocompleting sequences seen in training
     trie = initialize_prefix_trie()
 
-    # Load learning model for config and weights
+    # Load RNN(GRU) model for autocompleting seed sequences not seen before
     model = load_model("checkpoints/model.ckpt")
-    # Build inference model and transfer weights
     inference_model = build_inference_model(model)
     inference_model.set_weights(model.get_weights())
 
