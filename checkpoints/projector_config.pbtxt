@@ -1,4 +1,0 @@
-embeddings {
-  tensor_name: "embedding_1/embeddings:0"
-  metadata_path: "/Users/Ryan.Enderby@ibm.com/asapp/asapp-ml/data/id2char.tsv"
-}
