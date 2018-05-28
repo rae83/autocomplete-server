@@ -20,11 +20,18 @@ class TestPreprocess(unittest.TestCase):
         self.trie.add_sentence(self.root, self.string_2)
 
     def test_contains(self):
+        """
+        Test to verify that Trie.contains() returns True on sentences that have been added to the Trie.
+        Returns False for those that do not exist within the Trie.
+        """
         self.assertTrue(self.trie.contains(self.root, self.string_1)[0])
         self.assertTrue(self.trie.contains(self.root, self.string_2)[0])
         self.assertFalse(self.trie.contains(self.root, self.not_string)[0])
 
     def test_return_completions_from_node(self):
+        """
+        Test to verify that Trie.return_completions_from_node() correctly enumerates sentences that exist within the Trie,.
+        """
         node = self.trie.contains(self.root, self.common_prefix)[1]
         completions = self.trie.return_completions_from_node(node)
         # Although the unnittest method is misleadingly named, it actually checks if two arrays contain same elements
