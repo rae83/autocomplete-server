@@ -4,7 +4,7 @@ import os
 import pickle
 from keras.models import load_model
 from trie import Trie, TrieNode, extract_sentences_from_json, save_sentences_to_file, initialize_prefix_trie
-from rnn import generate_text, build_inference_model
+from rnn.rnn import generate_text, build_inference_model
 
 
 class autocomplete_handler(tornado.web.RequestHandler):
