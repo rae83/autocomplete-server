@@ -84,9 +84,13 @@ def generate_text(model, seed, length=512, top_n=10):
         # output shape: (1, 1, vocab_size)
         next_index = sample_from_probs(probs.squeeze(), top_n)
         # append to sequence
-        generated += ID2CHAR[next_index]
         if ID2CHAR[next_index] in [".", "!", "?"]:
+            generated += ID2CHAR[next_index]
             break
+        elif ID2CHAR[next_index] == "\n":
+            break
+        generated += ID2CHAR[next_index]
+        
 
     logger.info("generated text: \n%s\n", generated)
     return generated
