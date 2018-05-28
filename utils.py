@@ -10,6 +10,8 @@ from logger import get_logger
 
 logger = get_logger(__name__)
 
+# Adapted from implementation: https://github.com/yxtay/char-rnn-text-generation
+
 ###
 # file system
 ###

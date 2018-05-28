@@ -14,6 +14,7 @@ from utils import (batch_generator, encode_text, generate_seed, ID2CHAR, main,
 
 logger = get_logger(__name__)
 
+# Adapted from implementation: https://github.com/yxtay/char-rnn-text-generation
 
 def build_model(batch_size, seq_len, vocab_size=VOCAB_SIZE, embedding_size=32,
                 rnn_size=128, num_layers=2, drop_rate=0.0,
