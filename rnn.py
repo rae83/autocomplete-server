@@ -4,7 +4,7 @@ import time
 import numpy as np
 
 from keras.callbacks import Callback, ModelCheckpoint, TensorBoard
-from keras.layers import Dense, Dropout, Embedding, LSTM, TimeDistributed
+from keras.layers import Dense, Dropout, Embedding, LSTM, TimeDistributed, GRU
 from keras.models import load_model, Sequential
 from keras.optimizers import Adam
 
@@ -35,7 +35,7 @@ def build_model(batch_size, seq_len, vocab_size=VOCAB_SIZE, embedding_size=32,
     model.add(Dropout(drop_rate))
     # shape: (batch_size, seq_len, embedding_size)
     for _ in range(num_layers):
-        model.add(LSTM(rnn_size, return_sequences=True, stateful=True))
+        model.add(GRU(rnn_size, return_sequences=True, stateful=True))
         model.add(Dropout(drop_rate))
     # shape: (batch_size, seq_len, rnn_size)
     model.add(TimeDistributed(Dense(vocab_size, activation="softmax")))
