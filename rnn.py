@@ -18,7 +18,7 @@ logger = get_logger(__name__)
 # Changed model to GRU to better suit fast-as-possible autocomplete, changed logic for text generation.
 
 def build_model(batch_size, seq_len, vocab_size=VOCAB_SIZE, embedding_size=32,
-                rnn_size=128, num_layers=2, drop_rate=0.0,
+                rnn_size=128, num_layers=2, drop_rate=0.4,
                 learning_rate=0.001, clip_norm=5.0):
     """
     Build character embeddings GRU text generation model.
