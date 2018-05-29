@@ -15,10 +15,11 @@ from utils import (batch_generator, encode_text, generate_seed, ID2CHAR, main,
 logger = get_logger(__name__)
 
 # Adapted from implementation: https://github.com/yxtay/char-rnn-text-generation
-# Changed model to GRU to better suit fast-as-possible autocomplete, changed logic for text generation.
+# Changed model to GRU to better suit fast-as-possible autocomplete,
+# changed logic for text generation, added validation and tracking of val_loss
 
 def build_model(batch_size, seq_len, vocab_size=VOCAB_SIZE, embedding_size=32,
-                rnn_size=128, num_layers=2, drop_rate=0.4,
+                rnn_size=128, num_layers=2, drop_rate=0.5,
                 learning_rate=0.001, clip_norm=5.0):
     """
     Build character embeddings GRU text generation model.
@@ -36,7 +37,7 @@ def build_model(batch_size, seq_len, vocab_size=VOCAB_SIZE, embedding_size=32,
     model.add(Dropout(drop_rate))
     # Shape: (batch_size, seq_len, embedding_size)
     for _ in range(num_layers):
-        model.add(GRU(rnn_size, return_sequences=True, stateful=False))
+        model.add(GRU(rnn_size, return_sequences=True, stateful=True))
         model.add(Dropout(drop_rate))
     # Shape: (batch_size, seq_len, rnn_size)
     model.add(TimeDistributed(Dense(vocab_size, activation="softmax")))
@@ -174,11 +175,21 @@ def train_main(args):
         LoggerCallback(text, model)
     ]
 
+    # Split data into training and validation
+    training_fraction = 0.9
+    split = int(round(len(text) * training_fraction))
+
+    text_train = text[:split]
+    text_validation = text[split:]
+
     # Start training
-    num_batches = (len(text) - 1) // (args.batch_size * args.seq_len)
+    num_batches = (len(text_train) - 1) // (args.batch_size * args.seq_len)
+    val_batches = (len(text_validation) - 1) // (args.batch_size * args.seq_len)
     model.reset_states()
-    model.fit_generator(batch_generator(encode_text(text), args.batch_size, args.seq_len, one_hot_labels=True),
-                        num_batches, args.num_epochs, callbacks=callbacks)
+    model.fit_generator(batch_generator(encode_text(text_train), args.batch_size, args.seq_len, one_hot_labels=True),
+                        num_batches, args.num_epochs, callbacks=callbacks,
+                        validation_data=batch_generator(encode_text(text_validation), args.batch_size, args.seq_len, one_hot_labels=True),
+                        validation_steps=val_batches)
     return model
 
 

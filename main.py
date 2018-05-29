@@ -54,7 +54,7 @@ if __name__ == "__main__":
     trie = initialize_prefix_trie()
 
     # Load RNN(GRU) model for autocompleting seed sequences not seen before
-    model = load_model("checkpoints/stateful_model.ckpt")
+    model = load_model("checkpoints/stateful_gru_model.ckpt")
     inference_model = build_inference_model(model)
     inference_model.set_weights(model.get_weights())
 
