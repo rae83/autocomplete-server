@@ -8,7 +8,8 @@
 
 Just like the prompt proposes, you can retrieve your completions by:
         ```$: curl http://localhost:13000/autocomplete?q=What+is+y
-        => {"Completions": ["What is your account number?", "What is your address?", "What is your order number?"]}```
+
+        =>  {"Completions": ["What is your account number?", "What is your address?", "What is your order number?"]}```
 
 
 ## Follow-up questions
