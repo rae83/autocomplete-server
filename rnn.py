@@ -10,7 +10,7 @@ from keras.optimizers import Adam
 
 from logger import get_logger
 from utils import (batch_generator, encode_text, generate_seed, ID2CHAR, main,
-                   make_dirs, sample_from_probs, VOCAB_SIZE)
+                   sample_from_probs, VOCAB_SIZE)
 
 logger = get_logger(__name__)
 
@@ -50,12 +50,12 @@ def build_model(batch_size, seq_len, vocab_size=VOCAB_SIZE, embedding_size=32,
 
 def build_inference_model(model, batch_size=1, seq_len=1):
     """
-    Build inference model from model config
-    input shape modified to (1, 1)
+    Build inference model from model config.
+    Input shape modified to (1, 1)
     """
     logger.info("building inference model.")
     config = model.get_config()
-    # edit batch_size and seq_len
+    # Edit batch_size and seq_len
     config[0]["config"]["batch_input_shape"] = (batch_size, seq_len)
     inference_model = Sequential.from_config(config)
     inference_model.trainable = False
@@ -142,15 +142,14 @@ class LoggerCallback(Callback):
 
 def train_main(args):
     """
-    trains model specfied in args.
-    main method for train subcommand.
+    Trains model with specified args.
     """
-    # load text
+    # Load text
     with open(args.text_path) as f:
         text = f.read()
     logger.info("corpus length: %s.", len(text))
 
-    # load or build model
+    # Restore model from checkpoint or build model
     if args.restore:
         load_path = args.checkpoint_path if args.restore is True else args.restore
         model = load_model(load_path)
@@ -166,19 +165,16 @@ def train_main(args):
                             learning_rate=args.learning_rate,
                             clip_norm=args.clip_norm)
 
-    # make and clear checkpoint directory
-    log_dir = make_dirs(args.checkpoint_path, empty=True)
+    # Make and clear checkpoint directory
     model.save(args.checkpoint_path)
     logger.info("model saved: %s.", args.checkpoint_path)
-    # callbacks
+
     callbacks = [
         ModelCheckpoint(args.checkpoint_path, verbose=1, save_best_only=False),
-        TensorBoard(log_dir, write_graph=True, embeddings_freq=1,
-                    embeddings_metadata={"embedding_1": os.path.abspath(os.path.join("data", "id2char.tsv"))}),
         LoggerCallback(text, model)
     ]
 
-    # training start
+    # Start training
     num_batches = (len(text) - 1) // (args.batch_size * args.seq_len)
     model.reset_states()
     model.fit_generator(batch_generator(encode_text(text), args.batch_size, args.seq_len, one_hot_labels=True),
