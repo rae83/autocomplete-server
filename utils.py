@@ -12,32 +12,6 @@ logger = get_logger(__name__)
 
 # Adapted from implementation: https://github.com/yxtay/char-rnn-text-generation
 
-# File system
-
-def make_dirs(path, empty=False):
-    """
-    create dir in path and clear dir if required
-    """
-    dir_path = os.path.dirname(path)
-    os.makedirs(dir_path, exist_ok=True)
-
-    if empty:
-        files = [os.path.join(dir_path, item) for item in os.listdir(dir_path)]
-        for item in files:
-            if os.path.isfile(item):
-                os.remove(item)
-
-    return dir_path
-
-
-def path_join(*paths, empty=False):
-    """
-    join paths and create dir
-    """
-    path = os.path.abspath(os.path.join(*paths))
-    make_dirs(os.path.dirname(path), empty)
-    return path
-
 
 # Data processing functions
 
