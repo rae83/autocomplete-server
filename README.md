@@ -4,12 +4,26 @@
 
 ## Notes on the application
 ---
+#### The server
 `python3 main.py` starts the server with an endpoint for autocompleting strings at `localhost:13000/autocomplete`.
 
 Just like the prompt proposes, you can retrieve your completions by:
-        ```$: curl http://localhost:13000/autocomplete?q=What+is+y
 
-        =>  {"Completions": ["What is your account number?", "What is your address?", "What is your order number?"]}```
+        $: curl http://localhost:13000/autocomplete?q=What+is+y
+
+        =>  {"Completions": ["What is your account number?", "What is your address?", "What is your order number?"]}
+
+Requests are handled by the `autocomplete_handler`, which uses a prefix trie to return completions from strings seen during training, or an RNN(GRU) model to complete novel strings.
+
+#### Models
+All models are already created and saved, and will be loaded upon initialization of the server.
+
+However, should you choose to recreate the models instead of loading the serialized objects, the prefix trie is constructed if necessary upon starting the server, and loaded from a pickled object if the trie has previously been constructed.
+
+The RNN(GRU) can be trained (starting from a previous checkpoint) via the command `python3 rnn.py train --checkpoint=checkpoints/model.ckpt --restore=checkpoints/model.ckpt  --text=../data/sentences.txt`.  If there are no prior checkpoints, omit the `--restore` flag.
+
+
+#### Known limitations
 
 
 ## Follow-up questions
