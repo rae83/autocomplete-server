@@ -36,7 +36,7 @@ def build_model(batch_size, seq_len, vocab_size=VOCAB_SIZE, embedding_size=32,
     model.add(Dropout(drop_rate))
     # Shape: (batch_size, seq_len, embedding_size)
     for _ in range(num_layers):
-        model.add(GRU(rnn_size, return_sequences=True, stateful=True))
+        model.add(GRU(rnn_size, return_sequences=True, stateful=False))
         model.add(Dropout(drop_rate))
     # Shape: (batch_size, seq_len, rnn_size)
     model.add(TimeDistributed(Dense(vocab_size, activation="softmax")))
