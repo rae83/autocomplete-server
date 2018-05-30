@@ -98,7 +98,7 @@ def generate_seed(text, seq_lens=(2, 4, 8, 16, 32)):
     return seed
 
 
-def sample_from_probs(probs, top_n=10):
+def sample_from_probs(probs, top_n=1):
     """
     truncated weighted random choice.
     """
@@ -133,9 +133,9 @@ def main(framework, train_main):
                               help="character embedding size (default: %(default)s)")
     train_parser.add_argument("--rnn-size", type=int, default=128,
                               help="size of rnn cell (default: %(default)s)")
-    train_parser.add_argument("--num-layers", type=int, default=2,
+    train_parser.add_argument("--num-layers", type=int, default=3,
                               help="number of rnn layers (default: %(default)s)")
-    train_parser.add_argument("--drop-rate", type=float, default=0.,
+    train_parser.add_argument("--drop-rate", type=float, default=0.5,
                               help="dropout rate for rnn layers (default: %(default)s)")
     train_parser.add_argument("--learning-rate", type=float, default=0.001,
                               help="learning rate (default: %(default)s)")

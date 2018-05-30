@@ -5,6 +5,9 @@ import pickle
 from keras.models import load_model
 from trie import Trie, TrieNode, extract_sentences_from_json, save_sentences_to_file, initialize_prefix_trie
 from rnn import generate_text, build_inference_model
+from logger import get_logger
+
+logger = get_logger(__name__)
 
 
 class autocomplete_handler(tornado.web.RequestHandler):
@@ -18,16 +21,17 @@ class autocomplete_handler(tornado.web.RequestHandler):
         Returns: 
             list of strings, where each element is a possible completion.
         """
-        # n (int): Number of completions to return.
+        # n (int): Number of completions to return from trie
         n = 3
         (contains, node) = trie.contains(trie.root, prefix)
         if contains:
             return trie.return_completions_from_node(node, prefix=prefix)[:n]
         else:
-            completions = []
-            for _ in range(n):
-                completions.append(generate_text(model, prefix))
-            return completions
+            # completions = []
+            # for _ in range(n):
+            #     completions.append(generate_text(model, prefix))
+            # return completions
+            return generate_text(model, prefix)
 
     def get(self):
         """
@@ -54,7 +58,9 @@ if __name__ == "__main__":
     trie = initialize_prefix_trie()
 
     # Load RNN(GRU) model for autocompleting seed sequences not seen before
-    model = load_model("checkpoints/stateful_gru_model.ckpt")
+    model = load_model("checkpoints/stateful_gru_model_3_200.ckpt")
+    logger.info("Model generated:")
+    print(model.summary())
     inference_model = build_inference_model(model)
     inference_model.set_weights(model.get_weights())
 

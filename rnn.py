@@ -19,7 +19,7 @@ logger = get_logger(__name__)
 # changed logic for text generation, added validation and tracking of val_loss
 
 def build_model(batch_size, seq_len, vocab_size=VOCAB_SIZE, embedding_size=32,
-                rnn_size=128, num_layers=2, drop_rate=0.5,
+                rnn_size=128, num_layers=3, drop_rate=0.5,
                 learning_rate=0.001, clip_norm=5.0):
     """
     Build character embeddings GRU text generation model.
@@ -46,6 +46,9 @@ def build_model(batch_size, seq_len, vocab_size=VOCAB_SIZE, embedding_size=32,
     optimizer = Adam(learning_rate, clipnorm=clip_norm)
     model.compile(loss="categorical_crossentropy", optimizer=optimizer)
 
+    logger.info("Model generated:")
+    print(model.summary())    
+
     return model
 
 
@@ -63,7 +66,7 @@ def build_inference_model(model, batch_size=1, seq_len=1):
     return inference_model
 
 
-def generate_text(model, seed, length=512, top_n=10):
+def generate_text(model, seed, length=512, top_n=3):
     """
     generates text of specified length from trained model
     with given seed character sequence.
