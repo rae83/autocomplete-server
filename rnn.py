@@ -179,7 +179,7 @@ def train_main(args):
     ]
 
     # Split data into training and validation
-    training_fraction = 0.9
+    training_fraction = 0.95
     split = int(round(len(text) * training_fraction))
 
     text_train = text[:split]
