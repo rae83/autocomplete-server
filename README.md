@@ -28,7 +28,7 @@ Training the model over 64 epochs took about ~1 hour on CPU, and a fraction of t
 #### Credits and dependencies
 Non-standard library packages used: `tornado`, `pickle`, `keras`, `numpy`, `nltk`
 
-`main.py` and `test.py` entirely written by me.  `rnn.py` and `utils.py` is my adaptation of [YuXuan Tay's Keras implementation](https://github.com/yxtay/char-rnn-text-generation) of [Andrej Karpathy's char-rnn](https://github.com/karpathy/char-rnn).  No need to reinvent the wheel :) . I changed a number of the lines of code, text-generation logic, model hyper-paremeters, etc. Happy to explain my decisions in a phone call. The `logging.py` file, however, comes directly from YuXuan's repo.
+`main.py`, `trie.py` and `test.py` entirely written by me.  `rnn.py` and `utils.py` is my adaptation of [YuXuan Tay's Keras implementation](https://github.com/yxtay/char-rnn-text-generation) of [Andrej Karpathy's char-rnn](https://github.com/karpathy/char-rnn).  No need to reinvent the wheel :) . I changed a number of the lines of code, text-generation logic, model hyper-paremeters, etc. Happy to explain my decisions in a phone call. The `logging.py` file, however, comes directly from YuXuan's repo.
 
 #### Possible extensions
 
