@@ -15,8 +15,10 @@ from utils import (batch_generator, encode_text, generate_seed, ID2CHAR, main,
 logger = get_logger(__name__)
 
 # Adapted from implementation: https://github.com/yxtay/char-rnn-text-generation
+# (Keras implementation of Karpathy's char-rnn)
 # Changed model to GRU to better suit fast-as-possible autocomplete,
-# changed logic for text generation, added validation and tracking of val_loss
+# changed logic for text generation, added validation and tracking of val_loss,
+# and changed model hyperparameters
 
 def build_model(batch_size, seq_len, vocab_size=VOCAB_SIZE, embedding_size=32,
                 rnn_size=128, num_layers=3, drop_rate=0.5,
@@ -68,8 +70,7 @@ def build_inference_model(model, batch_size=1, seq_len=1):
 
 def generate_text(model, seed, length=512, top_n=2):
     """
-    generates text of specified length from trained model
-    with given seed character sequence.
+    Generates text of specified length from trained model with given seed (e.g. the prefix string).
     """
     logger.info("generating %s characters from top %s choices.", length, top_n)
     logger.info('generating with seed: "%s".', seed)
@@ -79,18 +80,18 @@ def generate_text(model, seed, length=512, top_n=2):
 
     for idx in encoded[:-1]:
         x = np.array([[idx]])
-        # input shape: (1, 1)
-        # set internal states
+        # Input shape: (1, 1)
+        # Set internal states
         model.predict(x)
 
     next_index = encoded[-1]
     for i in range(length):
         x = np.array([[next_index]])
-        # input shape: (1, 1)
+        # Input shape: (1, 1)
         probs = model.predict(x)
-        # output shape: (1, 1, vocab_size)
+        # Output shape: (1, 1, vocab_size)
         next_index = sample_from_probs(probs.squeeze(), top_n)
-        # append to sequence
+        # Append to sequence
         if ID2CHAR[next_index] in [".", "!", "?"]:
             generated += ID2CHAR[next_index]
             break
@@ -111,7 +112,7 @@ class LoggerCallback(Callback):
     def __init__(self, text, model):
         super(LoggerCallback, self).__init__()
         self.text = text
-        # build inference model using config from learning model
+        # Build inference model using config from learning model
         self.inference_model = build_inference_model(model)
         self.time_train = self.time_epoch = time.time()
 
@@ -122,10 +123,10 @@ class LoggerCallback(Callback):
         duration_epoch = time.time() - self.time_epoch
         logger.info("epoch: %s, duration: %ds, loss: %.6g.",
                     epoch, duration_epoch, logs["loss"])
-        # transfer weights from learning model
+        # Transfer weights from learning model
         self.inference_model.set_weights(self.model.get_weights())
 
-        # generate text
+        # Generate text
         seed = generate_seed(self.text)
         generate_text(self.inference_model, seed)
 
@@ -136,10 +137,10 @@ class LoggerCallback(Callback):
     def on_train_end(self, logs=None):
         duration_train = time.time() - self.time_train
         logger.info("end of training, duration: %ds.", duration_train)
-        # transfer weights from learning model
+        # Transfer weights from learning model
         self.inference_model.set_weights(self.model.get_weights())
 
-        # generate text
+        # Generate text
         seed = generate_seed(self.text)
         generate_text(self.inference_model, seed, 1024, 3)
 
@@ -200,4 +201,4 @@ if __name__ == "__main__":
     main("Keras", train_main)
 
     # Example usage for training:
-    # python3 rnn.py train --checkpoint=checkpoints/model.ckpt --restore=checkpoints/model.ckpt  --text=../data/sentences.txt
+    # python3 rnn.py train --checkpoint=checkpoints/model.ckpt --restore=checkpoints/model.ckpt  --text=data/sentences.txt
