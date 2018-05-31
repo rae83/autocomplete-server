@@ -44,7 +44,7 @@ In this case, there are a couple of dimensions across which to compare autocompl
 
 1. **Model performance:** If the difference between the two versions involves changes to the RNN model, it would be essential to compare how well each version's model fits the data.  This can be done through the comparison of training and validation losses.  A good strategy would be cross validation (e.g. k-folds), such that you average losses over the various folds to identify which model performs better.  Validation loss is an especially useful metric as it helps identify which model may perform better on previously unseen data.  This is important to note because user input will vary greatly and there are no guarantees it will closely match training conversations.
 
-2. **Speed:** A better fitting model could end up being less useful if it is perceptibly slower to users.  As such, 
+2. **Speed:** A better fitting model could end up being less useful if it is perceptibly slower to users.  As such, a comparison should be made regarding the prediction times of each model on input sequences of the same length.
 
 3. **User experience:** At the end of the day, this tool is successful if it helps the user.  A simple way to evaluate this dimension is through deploying both versions in an AB Test.  Users are randomly assigned either version A or version B, and some useful metric (or direct user feedback) is tracked and evaluated.  For example, did one version lower the average total time users spent chatting with a customer service agent, indicating that the version helped them accomplish their goal quicker?
     
