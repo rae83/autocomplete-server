@@ -1,8 +1,8 @@
 # ML Engineering ASAPP Challenge
 ### Ryan Enderby's Submission
----
 
-## Notes on the application
+
+
 ---
 #### The server
 `python3 main.py` starts the server with an endpoint for autocompleting strings at `localhost:13000/autocomplete`.
@@ -22,13 +22,13 @@ However, should you choose to recreate the models instead of loading the seriali
 
 The RNN(GRU) can be trained (starting from a previous checkpoint) via the command `python3 rnn.py train --checkpoint=checkpoints/model.ckpt --restore=checkpoints/model.ckpt  --text=../data/sentences.txt`.  If there are no prior checkpoints, omit the `--restore` flag.
 
+Training the model over 64 epochs took about ~1 hour on CPU, and a fraction of that time on GPU.  Most of the time it generates coherent English remarks.  However, it will occasionally omit sentences with nonsense words, which can largely be attributed to (1) the size of the dataset and (2) the priority I gave to keeping the model lightweight.
 
-#### Known limitations
 
 #### Credits and dependencies
 Non-standard library packages used: `tornado`, `pickle`, `keras`, `numpy`
 
-`main.py` and `test.py` entirely written by me.  `rnn.py` and `utils.py` is my adaptation of [YuXuan Tay's Keras implementation](https://github.com/yxtay/char-rnn-text-generation) of [Andrej Karpathy's char-rnn](https://github.com/karpathy/char-rnn).  No need to reinvent the wheel :) . The `logging.py` file, however, comes directly from YuXuan's repo.
+`main.py` and `test.py` entirely written by me.  `rnn.py` and `utils.py` is my adaptation of [YuXuan Tay's Keras implementation](https://github.com/yxtay/char-rnn-text-generation) of [Andrej Karpathy's char-rnn](https://github.com/karpathy/char-rnn).  No need to reinvent the wheel :) . I changed a number of the lines of code, text-generation logic, model hyper-paremeters, etc. Happy to explain my decisions in a phone call. The `logging.py` file, however, comes directly from YuXuan's repo.
 
 
 ## Follow-up questions
