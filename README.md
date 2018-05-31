@@ -25,6 +25,11 @@ The RNN(GRU) can be trained (starting from a previous checkpoint) via the comman
 
 #### Known limitations
 
+#### Credits and dependencies
+Non-standard library packages used: `tornado`, `pickle`, `keras`, `numpy`
+
+`main.py` and `test.py` entirely written by me.  `rnn.py` and `utils.py` is my adaptation of [YuXuan Tay's Keras implementation](https://github.com/yxtay/char-rnn-text-generation) of [Andrej Karpathy's char-rnn](https://github.com/karpathy/char-rnn).  No need to reinvent the wheel :) . The `logging.py` file, however, comes directly from YuXuan's repo.
+
 
 ## Follow-up questions
 ---
