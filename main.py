@@ -59,7 +59,6 @@ if __name__ == "__main__":
 
     # Load RNN(GRU) model for autocompleting seed sequences not seen before
     model = load_model("checkpoints/stateful_gru_model_3_200.ckpt")
-    logger.info("Model generated:")
     print(model.summary())
     inference_model = build_inference_model(model)
     inference_model.set_weights(model.get_weights())

@@ -66,7 +66,7 @@ def build_inference_model(model, batch_size=1, seq_len=1):
     return inference_model
 
 
-def generate_text(model, seed, length=512, top_n=3):
+def generate_text(model, seed, length=512, top_n=2):
     """
     generates text of specified length from trained model
     with given seed character sequence.
