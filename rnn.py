@@ -106,8 +106,7 @@ def generate_text(model, seed, length=512, top_n=2):
 
 class LoggerCallback(Callback):
     """
-    callback to log information.
-    generates text at the end of each epoch.
+    Callback to log information and generate text at the end of each epoch.
     """
     def __init__(self, text, model):
         super(LoggerCallback, self).__init__()
