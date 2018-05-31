@@ -30,6 +30,10 @@ Non-standard library packages used: `tornado`, `pickle`, `keras`, `numpy`
 
 `main.py` and `test.py` entirely written by me.  `rnn.py` and `utils.py` is my adaptation of [YuXuan Tay's Keras implementation](https://github.com/yxtay/char-rnn-text-generation) of [Andrej Karpathy's char-rnn](https://github.com/karpathy/char-rnn).  No need to reinvent the wheel :) . I changed a number of the lines of code, text-generation logic, model hyper-paremeters, etc. Happy to explain my decisions in a phone call. The `logging.py` file, however, comes directly from YuXuan's repo.
 
+#### Possible extensions
+
+**Post-deployment learning:** Training shouldn't just be a one-time activity.  Instances where a user does not choose any autocomplete suggestions can be recorded and used for further training.  A separate server could accumulate new complete messages and run batch training on the RNN model, updating the weights of the deployed models periodically.  Similarly, messages can be added to the trie.  If trie size and memory becomes an issue, least-recently-used completions or prefixes could be ejected after an amount of time.
+
 
 ## Follow-up questions
 ---
