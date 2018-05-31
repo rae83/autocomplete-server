@@ -2,7 +2,7 @@ import logging
 from logging.handlers import RotatingFileHandler
 import os
 
-# Adapted from implementation: https://github.com/yxtay/char-rnn-text-generation
+# Logger from: https://github.com/yxtay/char-rnn-text-generation
 
 def get_logger(name, log_path=os.path.join(os.path.dirname(__file__), "main.log"), console=False):
     """

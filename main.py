@@ -27,7 +27,7 @@ class autocomplete_handler(tornado.web.RequestHandler):
         if contains:
             return trie.return_completions_from_node(node, prefix=prefix)[:n]
         else:
-            # returning a single completion because the RNN model is slower than the trie
+            # Returning a single completion because the RNN model is slower than the trie
             return generate_text(model, prefix)
 
     def get(self):
