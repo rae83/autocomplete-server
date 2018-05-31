@@ -19,11 +19,11 @@ def get_logger(name, log_path=os.path.join(os.path.dirname(__file__), "main.log"
     logger.setLevel(logging.DEBUG)
     formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
 
-    # ensure that logging handlers are not duplicated
+    # Ensure that logging handlers are not duplicated
     for handler in list(logger.handlers):
         logger.removeHandler(handler)
 
-    # rotating file handler
+    # Rotating file handler
     if log_path:
         fh = RotatingFileHandler(log_path,
                                  maxBytes=2 ** 20,  # 1 MB
@@ -32,7 +32,7 @@ def get_logger(name, log_path=os.path.join(os.path.dirname(__file__), "main.log"
         fh.setFormatter(formatter)
         logger.addHandler(fh)
 
-    # console handler
+    # Console handler
     if console:
         ch = logging.StreamHandler()
         ch.setLevel(logging.INFO)
