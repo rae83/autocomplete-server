@@ -34,6 +34,8 @@ Non-standard library packages used: `tornado`, `pickle`, `keras`, `numpy`, `nltk
 
 **Post-deployment learning:** Training shouldn't just be a one-time activity.  Instances where a user does not choose any autocomplete suggestions can be recorded and used for further training.  A separate server could accumulate new complete messages and run batch training on the RNN model, updating the weights of the deployed models periodically.  Similarly, messages can be added to the trie.  If trie size and memory becomes an issue, least-recently-used completions or prefixes could be ejected after an amount of time.
 
+**Privacy concerns:** Training data should be scrubbed of and personal information.  For example, phone numbers could be replaced by a tag indicating that it's a phone number ("< phone_number >"), and an occurrence of the tag in autocompleted text could signal the application to replace the tag with the phone number of the user to which the response is being sent.
+
 
 ## Follow-up questions
 ---
@@ -58,7 +60,9 @@ Supervised classification problem...
 
 Confusion matrix...
 
+Outside of classification performance, since this is a user-facing it is important to consider *what kind of errors* the model makes.  
+
 ---
 - Processing hundreds of millions of conversations for your autocomplete and auto-categorize models could take a very long time. How could you distribute the processing across multiple machines?
 
-Fortunately, since requests from different users are independent, the model servers are entirely horizontally scalable, and instances can be spun up according to request load.  Both autocomplete and auto-categorize can be opened as API end points, with each request being pushed to a queueing mechanism.  The next available server will pull from the queue to process a new request every time it finishes processing an earlier request.
+Fortunately, since requests from different users are independent, the model servers are independent and entirely horizontally scalable, and instances can be spun up according to request load.  Both autocomplete and auto-categorize can be opened as API end points, with each request being pushed to a queueing mechanism.  The next available server will pull from the queue to process a new request every time it finishes processing an earlier request.
