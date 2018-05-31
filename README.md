@@ -49,3 +49,5 @@ In this case, there are a couple of dimensions across which to compare autocompl
 - How would you evaluate if your auto-categorization server is good?
 ---
 - Processing hundreds of millions of conversations for your autocomplete and auto-categorize models could take a very long time. How could you distribute the processing across multiple machines?
+
+Fortunately, since requests from different users are independent, the model servers are entirely horizontally scalable, and instances can be spun up according to request load.  Both autocomplete and auto-categorize can be opened as API end points, with each request being pushed to a queueing mechanism.  The next available server will pull from the queue to process a new request every time it finishes processing an earlier request.
