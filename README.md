@@ -53,14 +53,14 @@ In this case, there are a couple of dimensions across which to compare autocompl
 ---
 - One way to improve the autocomplete server is to give topic-specific suggestions. How would you design an auto-categorization server? It should take a list of messages and return a TopicId. (Assume that every conversation in the training set has a TopicId).
 
-Supervised classification problem...
+There are a few ways you could go about this problem. One way is to treat it as a topic modeling problem, another is to treat it as a supervised-learning, classification problem.  Since you have a training set of labeled data, I will opt for the classification approach.  The server would receive a list of sentences, vectorize each sentence at the word level (e.g. using a pretrained embedding model like Word2Vec), and run a classification model on sequences of vectors. Since you are returning a TopicId for the list, each message in the list could be processed independently (e.g. fed through a model with softmax scores as the output), the outputs could be pooled / added and then again taken as a softmax distribution, and the highest probability TopicId can be assigned to the list.
 
 ---
 - How would you evaluate if your auto-categorization server is good?
 
-Confusion matrix...
+To assess the performance of the model that the auto-categorization server uses, you can look at the confusion matrix of training and test output.
 
-Outside of classification performance, since this is a user-facing it is important to consider *what kind of errors* the model makes.  
+Similar to my response for the first questions, it is important to consider dimensions alongside model performance, such as speed and value to the user.  Further, since this is a user-facing, it is also important to consider *what kind of errors* the model makes.  
 
 ---
 - Processing hundreds of millions of conversations for your autocomplete and auto-categorize models could take a very long time. How could you distribute the processing across multiple machines?
