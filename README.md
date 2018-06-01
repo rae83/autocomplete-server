@@ -60,7 +60,7 @@ There are a few ways you could go about this problem. One way is to treat it as 
 
 Similar to my response for the first questions, it is important to consider dimensions alongside model performance, such as speed and value to the user.  Further, since this is a user-facing, it is also important to consider *what kind of errors* the model makes.  As such, to assess the performance of the model that the auto-categorization server uses, you can look at the confusion matrix of model output.  This will help you identify strengths and weaknesses in the model - are there certain topics that it routinely labels correctly? Certain ones that it habitually mislabels?  Is it only achieving high accuracy in one topic because is is over-assigning all messages to that topic?
 
-Since auto-categorization is an extension on the autocomplete server, it would be useful to compare the autocomplete standalone to the autocomplete + auto-categorize servers.  Again, this could be done in an AB Test that measure if one server setup helps users achieve their goal more quickly than the other.
+Since auto-categorization is an extension on the autocomplete server, it would be useful to compare the autocomplete standalone to the autocomplete + auto-categorize servers.  Again, this could be done in an AB Test that measures if one server setup helps users achieve their goal more quickly than the other.
 
 ---
 - Processing hundreds of millions of conversations for your autocomplete and auto-categorize models could take a very long time. How could you distribute the processing across multiple machines?
