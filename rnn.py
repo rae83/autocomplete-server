@@ -200,4 +200,4 @@ if __name__ == "__main__":
     main("Keras", train_main)
 
     # Example usage for training:
-    # python3 rnn.py train --checkpoint=checkpoints/model.ckpt --restore=checkpoints/model.ckpt  --text=data/sentences.txt
+    # python3 rnn.py train --checkpoint=checkpoints/stateful_gru_model_3_200.ckpt --restore=checkpoints/stateful_gru_model_3_200.ckpt  --text=data/sentences.txt
