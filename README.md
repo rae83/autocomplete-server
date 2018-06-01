@@ -58,9 +58,7 @@ There are a few ways you could go about this problem. One way is to treat it as 
 ---
 - How would you evaluate if your auto-categorization server is good?
 
-To assess the performance of the model that the auto-categorization server uses, you can look at the confusion matrix of training and test output.
-
-Similar to my response for the first questions, it is important to consider dimensions alongside model performance, such as speed and value to the user.  Further, since this is a user-facing, it is also important to consider *what kind of errors* the model makes.  
+Similar to my response for the first questions, it is important to consider dimensions alongside model performance, such as speed and value to the user.  Further, since this is a user-facing, it is also important to consider *what kind of errors* the model makes.  As such, to assess the performance of the model that the auto-categorization server uses, you can look at the confusion matrix of training and test output.
 
 ---
 - Processing hundreds of millions of conversations for your autocomplete and auto-categorize models could take a very long time. How could you distribute the processing across multiple machines?
