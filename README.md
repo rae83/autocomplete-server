@@ -48,7 +48,7 @@ In this case, there are a couple of dimensions across which to compare autocompl
 
 2. **Speed:** A better fitting model could end up being less useful if it is perceptibly slower to users.  As such, a comparison should be made regarding the prediction times of each model on input sequences of the same length.
 
-3. **User experience:** At the end of the day, this tool is successful if it helps the user.  A simple way to evaluate this dimension is through deploying both versions in an AB Test.  Users are randomly assigned either version A or version B, and some useful metric (or direct user feedback) is tracked and evaluated.  For example, did one version lower the average total time users spent chatting with a customer service agent, indicating that the version helped them accomplish their goal quicker?
+3. **User experience:** At the end of the day, this tool is successful if it helps the user.  A simple way to evaluate this dimension is through deploying both versions in an AB Test.  Users are randomly assigned either version A or version B, and some useful metric (or direct user feedback) is tracked and evaluated.  For example, did one version lower the average total time users spent chatting with a customer service agent, indicating that the version helped them more quickly accomplish their goal?
     
 ---
 - One way to improve the autocomplete server is to give topic-specific suggestions. How would you design an auto-categorization server? It should take a list of messages and return a TopicId. (Assume that every conversation in the training set has a TopicId).
@@ -58,7 +58,7 @@ There are a few ways you could go about this problem. One way is to treat it as 
 ---
 - How would you evaluate if your auto-categorization server is good?
 
-Similar to my response for the first questions, it is important to consider dimensions alongside model performance, such as speed and value to the user.  Further, since this is a user-facing, it is also important to consider *what kind of errors* the model makes.  As such, to assess the performance of the model that the auto-categorization server uses, you can look at the confusion matrix of model output.  This will help you identify strengths and weaknesses in the model - are there certain topics that it routinely labels correctly? Certain ones that it habitually mislabels?  Is it only achieving high accuracy in one topic because is is over-assigning all messages to that topic?
+Similar to my response for the first questions, it is important to consider dimensions alongside model performance, such as speed and value to the user.  Further, since this is user-facing, it is also important to consider *what kind of errors* the model makes.  As such, to assess the performance of the model that the auto-categorization server uses, you can look at the confusion matrix of model output.  This will help you identify strengths and weaknesses in the model - are there certain topics that it routinely labels correctly? Certain ones that it habitually mislabels?  Is it only achieving high accuracy in one topic because is is over-assigning all messages to that topic?
 
 Since auto-categorization is an extension on the autocomplete server, it would be useful to compare the autocomplete standalone to the autocomplete + auto-categorize servers.  Again, this could be done in an AB Test that measures if one server setup helps users achieve their goal more quickly than the other.
 
