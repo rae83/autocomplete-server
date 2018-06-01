@@ -32,9 +32,9 @@ Non-standard library packages used: `tornado`, `pickle`, `keras`, `numpy`, `nltk
 
 #### Possible extensions
 
-**Post-deployment learning:** Training shouldn't just be a one-time activity.  Instances where a user does not choose any autocomplete suggestions can be recorded and used for further training.  A separate server could accumulate new complete messages and run batch training on the RNN model, updating the weights of the deployed models periodically.  Similarly, messages can be added to the trie.  If trie size and memory becomes an issue, least-recently-used completions or prefixes could be ejected after an amount of time.
+**Post-deployment learning:** Training shouldn't just be a one-time activity.  Instances where a user does not choose any autocomplete suggestions can be recorded and used for further training.  A separate server could accumulate new complete messages and run batch training on the RNN model, updating the weights of the deployed models periodically.  Similarly, messages can be added to the trie.  If trie size and memory become issues, least-recently-used completions or prefixes could be ejected after an amount of time.
 
-**Privacy concerns:** Training data should be scrubbed of and personal information.  For example, phone numbers could be replaced by a tag indicating that it's a phone number ("< phone_number >"), and an occurrence of the tag in autocompleted text could signal the application to replace the tag with the phone number of the user to which the response is being sent.
+**Privacy concerns:** Training data should be scrubbed of any personal information.  For example, phone numbers could be replaced by a tag indicating that it's a phone number ("< phone_number >"), and an occurrence of the tag in autocompleted text could signal the application to replace the tag with the phone number of the user to which the response is being sent.
 
 
 ## Follow-up questions
